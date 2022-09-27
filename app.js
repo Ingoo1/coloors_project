@@ -5,12 +5,14 @@ const sliders = document.querySelectorAll('input[type="range"]');
 const currentHexes = document.querySelectorAll('.color h2');
 const popup = document.querySelector('.copy-container');
 const adjustButtons = document.querySelectorAll('.adjust');
+const lockButton = document.querySelectorAll('.lock');
 const closeAjustments = document.querySelectorAll('.close-adjustment');
 const slidersContainers = document.querySelectorAll('.sliders');
 
 let initialColors;
 
 //Add our event listeners
+generateBtn.addEventListener('click', randomColors);
 sliders.forEach((slider) => {
   slider.addEventListener('input', hslControls);
 });
@@ -71,6 +73,11 @@ function randomColors() {
   });
   //Reset Inputs
   resetInputs();
+  //Check for Button Contrast
+  adjustButtons.forEach((button, index) => {
+    checkTextContrast(initialColors[index], button);
+    checkTextContrast(initialColors[index], lockButton[index]);
+  });
 }
 
 function checkTextContrast(color, text) {
